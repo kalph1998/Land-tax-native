@@ -1,7 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Layout from "./layout/Layout";
+import { StyleSheet, View, ScrollView } from "react-native";
+import Header from "./components/Header";
+import Selector from "./Screens/Picker";
 
 export default function App() {
-  return <Layout />;
+  return (
+    <View style={styles.container}>
+      <Header title="Rajasthan Land Tax Calculator" />
+      <ScrollView>
+        <Selector />
+      </ScrollView>
+    </View>
+  );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

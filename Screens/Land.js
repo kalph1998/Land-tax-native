@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { Input } from "react-native-elements";
 import NumberContainer from "../components/NumberContainer";
+import Buttton from "../components/Button";
 
-const Land = props => {
+const Land = (props) => {
   const minecat = props.minecat;
   const Category = props.Category;
   const [area, setArea] = useState("");
-  const inputHandler = input => {
+  const [taxable, setTaxable] = useState(0);
+  const [Pay, setPay] = useState(0);
+
+  const inputHandler = (input) => {
     setArea(input.replace(/[^0-9]/g, ""));
   };
   function numberWithCommas(x) {
@@ -43,12 +47,33 @@ const Land = props => {
 
   const payableTax = numberWithCommas(Payable(Category, taxableLand, minecat));
 
+  const CalculateHandler = () => {
+    if (area === "") {
+      Alert.alert("no value", "Please enter the area of land", [
+        { style: "destructive", text: "OK", onPress: clearHandler },
+      ]);
+    } else if (area < 10000) {
+      Alert.alert("Small Land ", "No Tax applicable", [
+        { style: "destructive", text: "ok", onPress: clearHandler },
+      ]);
+    } else {
+      setTaxable(tax);
+      setPay(payableTax);
+    }
+  };
+
+  const clearHandler = () => {
+    setTaxable(0);
+    setPay(0);
+    setArea("");
+  };
+
   return (
     <View>
       <View style={styles.inputContainer}>
         <Input
           placeholder="sq ft"
-          label="Area of Land"
+          label="Enter Area of Land in sq.ft"
           containerStyle={styles.inputContainerStyle}
           maxLength={7}
           keyboardType="numeric"
@@ -58,32 +83,40 @@ const Land = props => {
             color: "black",
             fontSize: 20,
             marginBottom: 20,
-            color: "#de6b35"
+            color: "#de6b35",
+            textAlign: "center",
           }}
           placeholderTextColor="#de6b35"
           underlineColorAndroid="transparent"
           blurOnSubmit
           inputContainerStyle={styles.input}
+          clearButtonMode="always"
         />
-        <Text style={{ fontSize: 20, marginTop: 20 }}>Taxable Land(sq.ft)</Text>
-        <View>
-          <NumberContainer>{tax} ₹</NumberContainer>
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Buttton text="calculate" onPress={CalculateHandler} />
+
+          <Buttton text="clear" onPress={clearHandler} />
         </View>
+        <Text style={{ fontSize: 20, marginTop: 20 }}>Taxable Land</Text>
         <View>
-          <Text style={{ fontSize: 20, marginTop: 20, textAlign: "left" }}>
-            Payable Tax
-          </Text>
+          <NumberContainer>{taxable} sq.ft </NumberContainer>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ fontSize: 20, marginTop: 20 }}>Payable Tax</Text>
           <View>
-            <NumberContainer>{payableTax} ₹</NumberContainer>
+            <NumberContainer>{Pay} ₹ </NumberContainer>
           </View>
         </View>
         <View style={styles.NoteContainer}>
           <Text style={styles.Note}>
-            Note : On Payable tax Intrest and Penalty may be applicable as per
+            Note : Intrest and Penalty on Payable tax may be applicable as per
             Land Tax rules
           </Text>
         </View>
-        <Text></Text>
       </View>
     </View>
   );
@@ -92,25 +125,25 @@ const styles = StyleSheet.create({
   inputContainer: {
     alignItems: "center",
     marginTop: 20,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   inputContainerStyle: {
     width: "70%",
     alignItems: "center",
-    paddingLeft: 25
+    paddingLeft: 25,
   },
   Note: {
     textAlign: "center",
     fontSize: 18,
-    color: "#8f4426"
+    color: "#8f4426",
   },
   NoteContainer: {
-    marginTop: 20
+    marginTop: 20,
   },
   input: {
     borderBottomWidth: 1,
-    borderBottomColor: "black"
-  }
+    borderBottomColor: "black",
+  },
 });
 
 export default Land;

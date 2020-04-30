@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import Land from "./Land";
-import Header from "../components/Header";
 
-const ClassPicker = props => {
+const ClassPicker = (props) => {
   const [Category, setCategory] = useState("industrial");
   const [minecat, setMineCat] = useState("");
 
   return (
     <View>
       <View>
-        <Header title="Rajasthan Land Tax Calculator" />
-      </View>
-      <ScrollView>
         <View>
           <View style={styles.Cat}>
-            <Text style={{ fontSize: 23 }}> Select Category of Land Type </Text>
+            <Text style={{ fontSize: 23 }}>Select Category of Land Type</Text>
             <Picker
               selectedValue={Category}
               style={styles.CatPick}
@@ -68,7 +64,7 @@ const ClassPicker = props => {
         </View>
 
         <Land Category={Category} minecat={minecat} />
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -76,19 +72,19 @@ const ClassPicker = props => {
 const styles = StyleSheet.create({
   Cat: {
     marginTop: 30,
-    alignItems: "center"
+    alignItems: "center",
   },
   CatPick: {
     height: 60,
-    width: 300
+    width: 300,
   },
   mine: {
-    fontSize: 23
+    fontSize: 23,
   },
   MineContainer: {
     alignItems: "center",
-    marginTop: 20
-  }
+    marginTop: 20,
+  },
 });
 
 export default ClassPicker;

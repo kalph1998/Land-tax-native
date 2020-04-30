@@ -1,19 +1,17 @@
 {
   "expo": {
-    "name": "land-tax",
+    "name": "Land Tax Calculator",
     "slug": "land-tax",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon1.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/Background1.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#171717"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,8 +19,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
+    "description": "",
+    "android": {
+      "package": "com.igrsRaj.LandTax",
+      "versionCode": 1
     }
   }
 }
